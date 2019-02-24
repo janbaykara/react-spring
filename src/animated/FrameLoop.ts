@@ -34,14 +34,14 @@ const frameLoop = () => {
 
         // Conclude animation if it's either immediate, or from-values match end-state
         if (config.immediate) {
-          animation.updateValue(to)
+          animation.setValue(to)
           animation.done = true
           continue
         }
 
         // Break animation when string values are involved
         if (typeof from === 'string' || typeof to === 'string') {
-          animation.updateValue(to)
+          animation.setValue(to)
           animation.done = true
           continue
         }
@@ -107,7 +107,7 @@ const frameLoop = () => {
           animation.done = true
         } else isActive = true
 
-        animation.updateValue(position)
+        animation.setValue(position)
         animation.lastPosition = position
       }
 

@@ -37,7 +37,7 @@ let isUnitlessNumber: { [key: string]: true } = {
   widows: true,
   zIndex: true,
   zoom: true,
-  // SVG-related properties
+  // number | stringG-related properties
   fillOpacity: true,
   floodOpacity: true,
   stopOpacity: true,

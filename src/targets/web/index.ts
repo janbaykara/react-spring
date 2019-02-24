@@ -128,7 +128,7 @@ const domElements: JSXElements[] = [
   'var',
   'video',
   'wbr',
-  // SVG
+  // number | stringG
   'circle',
   'clipPath',
   'defs',
