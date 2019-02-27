@@ -1,10 +1,9 @@
 import { ReactType } from 'react'
-import animated, {
-  CreateAnimatedComponent,
-} from '../../animated/createAnimatedComponent'
+import animated from '../../animated/createAnimatedComponent'
 import * as Globals from '../../animated/Globals'
 import { interpolate } from '../../interpolate'
 import { config } from '../../shared/constants'
+import { CreateAnimatedComponent } from '../../types/animated'
 import { useChain } from '../../useChain'
 import { useSpring } from '../../useSpring'
 import { useSprings } from '../../useSprings'

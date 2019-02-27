@@ -1,4 +1,53 @@
+import {
+  ComponentPropsWithRef,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  ReactType,
+  RefAttributes,
+} from 'react'
 import { InterpolationConfig } from './interpolation'
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+type ExtendProp<
+  Props extends object,
+  Key extends number | string,
+  Val
+> = Key extends keyof Props
+  ? Omit<Props, Key> & Record<Key, Val | Props[Key]>
+  : Props
+
+type SpringifyProps<Props> = {
+  [K in keyof Props]: Props[K] extends number | string | undefined
+    ? SpringValue<Props[K]> | Props[K]
+    : Props[K]
+}
+
+type AddToProps<
+  Props extends object,
+  Key extends string
+> = Key extends keyof Props
+  ? Omit<Props, Key> & Record<Key, SpringifyProps<Props[Key]>>
+  : Props
+
+/** Makes all properties animatable */
+export type AnimatedComponentProps<
+  C extends ReactType,
+  Props extends object = ComponentPropsWithRef<C>
+> = ExtendProp<
+  SpringifyProps<AddToProps<Props, 'style'>>,
+  'children',
+  SpringValue<string>
+> & {
+  scrollLeft?: SpringValue<number>
+  scrollTop?: SpringValue<number>
+}
+
+export interface CreateAnimatedComponent<T extends ReactType = ReactType> {
+  <C extends T>(Component: C): ForwardRefExoticComponent<
+    PropsWithoutRef<AnimatedComponentProps<C>> & RefAttributes<C>
+  >
+}
 
 export type GetValueType<T> = T extends number
   ? number
@@ -15,7 +64,7 @@ export type GetArrayValueType<T extends any[]> = T extends (infer U)[]
  */
 export interface SpringValue<
   // The literal value from initialization.
-  Value extends number | string | (number | string)[] =
+  Value extends undefined | number | string | (number | string)[] =
     | number
     | string
     | (number | string)[],

@@ -1,13 +1,12 @@
 import { ReactType } from 'react'
 import * as konva from 'react-konva'
-import animated, {
-  CreateAnimatedComponent,
-} from '../../animated/createAnimatedComponent'
+import animated from '../../animated/createAnimatedComponent'
 import * as Globals from '../../animated/Globals'
 import { interpolate } from '../../interpolate'
 import colorNames from '../../shared/colors'
 import { config } from '../../shared/constants'
 import createStringInterpolator from '../../shared/stringInterpolation'
+import { CreateAnimatedComponent } from '../../types/animated'
 import { useChain } from '../../useChain'
 import { useSpring } from '../../useSpring'
 import { useSprings } from '../../useSprings'
@@ -59,7 +58,7 @@ const konvaElements: (keyof KonvaComponents)[] = [
   'Wedge',
 ]
 
-type AnimatedWithKonvaElements = CreateAnimatedComponent<ReactType> &
+type AnimatedWithKonvaElements = CreateAnimatedComponent &
   {
     [Tag in keyof KonvaComponents]: ReturnType<
       CreateAnimatedComponent<KonvaComponents[Tag]>
